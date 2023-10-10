@@ -37,10 +37,24 @@
 #  
 # 
 #  Related Topics 哈希表 字符串 滑动窗口 👍 9614 👎 0
+import collections
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        pass
+        mp = collections.defaultdict(int)
+        res = 0
+        window = ''
+        l = 0
+        for r, ch in enumerate(s):
+            window += ch
+            mp[ch] += 1
+            while mp[ch] != 1:
+                mp[s[l]] -= 1
+                l += 1
+            res = max(res, r-l+1)
+            window = s[l:r+1]
+
+        return res
 # leetcode submit region end(Prohibit modification and deletion)
